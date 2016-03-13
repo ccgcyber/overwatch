@@ -14,4 +14,4 @@ Want to see another service supported just raise an issue.
 
 ## Screen Shot
 
-![screenshot.png](Overwatch v0.1.0)
+![Overwatch v0.1.0](screenshot.png)
