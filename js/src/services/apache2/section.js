@@ -1,40 +1,43 @@
 'use strict';
 
 var $ = require('jquery');
-var section = require('./section.js').default;
+var action = require('./action.js').default;
 
-export default class apache2Service {
+export default class section {
 
-	constructor(serviceData, renderTo) {
-		console.log('SERVICE:: ADD');
-		this.name = serviceData.name;
-		this.sections = [];
+	constructor(siteData, renderTo) {
+		this.name = siteData.name;
+		this.actions = [];
 
-		this.element = null;
 		this.renderTo = renderTo;
+		this.element = null;
 
 		this.render();
 
-		if (typeof serviceData.section !== 'undefined') {
-			this.sectionAdd(serviceData.section);
+		if (typeof siteData.action !== 'undefined') {
+			this.actionAdd(siteData.action);
 		}
 	}
 
 	render() {
-		var serviceElement = $('<div/>');
-		serviceElement.addClass('service');
-		serviceElement.addClass(this.name);
-		serviceElement.appendTo(this.renderTo);
+		var siteElement = $('<div/>');
+		siteElement.addClass('site');
+		siteElement.addClass(this.name);
+		siteElement.appendTo(this.renderTo);
 
-		this.element = serviceElement;
+		// Header
+		var siteHeader = $('<header/>');
+		siteHeader.html(this.name);
+		siteHeader.appendTo(siteElement);
+
+		this.element = siteElement;
 	}
 
-	sectionAdd(sectionData) {
-		this.sections[sectionData.name] = new section(sectionData, this.element);
+	actionAdd(actionData) {
+		this.actions[actionData.name] = new action(actionData, this.element);
 	}
 
-	sectionAdded(sectionData) {
-		return (typeof this.sections[sectionData.name] !== "undefined")
+	actionAdded(actionData) {
+		return (typeof this.actions[actionData.name] !== "undefined")
 	}
-
 }
