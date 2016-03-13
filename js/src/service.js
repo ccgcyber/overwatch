@@ -18,6 +18,17 @@ export default class service {
 		if (typeof serviceData.section !== 'undefined') {
 			this.sectionAdd(serviceData.section);
 		}
+
+		this.element.on('click', e => {
+			if (this.element.hasClass('collapse')) {
+				this.expand();
+			}
+			else {
+				this.collapse();
+			}
+
+			e.preventDefault();
+		});
 	}
 
 	render() {
@@ -37,6 +48,14 @@ export default class service {
 
 	sectionAdded(sectionData) {
 		return (typeof this.sections[sectionData.name] !== "undefined")
+	}
+
+	collapse() {
+		this.element.addClass('collapse');
+	}
+
+	expand() {
+		this.element.removeClass('collapse');
 	}
 
 }
