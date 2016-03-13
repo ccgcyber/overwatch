@@ -90,21 +90,25 @@ body {
 .server .service.apache2::before {
 	content: "Apache 2";
 }
+.server .service.apache2 > .section .action.error {
+	background-color: #ad0000;
+	order: 1;
+}
 .server .service.apache2 > .section .action.GET {
 	background-color: #003300;
-	order: 1;
+	order: 2;
 }
 .server .service.apache2 > .section .action.POST {
 	background-color: #000033;
-	order: 2;
+	order: 3;
 }
 .server .service.apache2 > .section .action.OPTIONS {
 	background-color: #333300;
-	order: 4;
+	order: 5;
 }
 .server .service.apache2 > .section .action.HEAD {
 	background-color: #330033;
-	order: 3;
+	order: 4;
 }
 
 
