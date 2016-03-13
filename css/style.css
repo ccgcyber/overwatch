@@ -37,6 +37,11 @@ body {
 	font-size: 18px;
 }
 
+.server .service > .section {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .server .service > .section::after {
 	content: "";
 	display: table;
@@ -44,6 +49,8 @@ body {
 }
 
 .server .service > .section header {
+	display: block;
+	width: 100%;
 }
 
 .server .service > .section .action {
@@ -76,18 +83,23 @@ body {
 
 .server .service.apache2 > .section .action {
 	background-color: #DDD;
+	order: 100;
 }
 .server .service.apache2 > .section .action.GET {
 	background-color: #003300;
+	order: 1;
 }
 .server .service.apache2 > .section .action.POST {
 	background-color: #000033;
+	order: 2;
 }
 .server .service.apache2 > .section .action.OPTIONS {
 	background-color: #333300;
+	order: 4;
 }
 .server .service.apache2 > .section .action.HEAD {
 	background-color: #330033;
+	order: 3;
 }
 
 
