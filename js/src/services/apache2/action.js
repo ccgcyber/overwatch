@@ -10,6 +10,8 @@ export default class action {
 		this.renderTo = renderTo;
 		this.element = null;
 
+		this.timer = null;
+
 		this.render();
 	}
 
@@ -21,5 +23,17 @@ export default class action {
 		actionElement.appendTo(this.renderTo);
 
 		this.element = actionElement;
+	}
+
+	blink() {
+
+		clearTimeout(this.timer);
+		this.timer = null;
+
+		this.element.addClass('active');
+
+		this.timer = setTimeout(function() {
+			this.element.removeClass('active');
+		}.bind(this), 60);
 	}
 }
