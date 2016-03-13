@@ -12,27 +12,28 @@ export default class overwatch {
 
 	newData(data) {
 
-		if (this.serverAdded(data.server) === false) {
-			this.serverAdd(data.server)
-		}
-
+		this.serverAdd(data.server);
 		var server = this.servers[data.server.name];
-		console.log(server);
 
+		server.serviceAdd(data.server.service);
 		var service = server.services[data.server.service.name];
-		console.log(service);
 
+		service.sectionAdd(data.server.service.section);
 		var section = service.sections[data.server.service.section.name];
-		console.log(section);
 
+		section.actionAdd(data.server.service.section.action);
 		var action = section.actions[data.server.service.section.action.name];
-		console.log(action);
+
+
+		console.log(data.server.name,data.server.service.name,data.server.service.section.name,data.server.service.section.action.name);
 
 		action.blink();
 	}
 
 	serverAdd(serverData) {
-		this.servers[serverData.name] = new server(serverData);
+		if (this.serverAdded(serverData) === false) {
+			this.servers[serverData.name] = new server(serverData);
+		}
 	}
 
 	serverAdded(serverData) {
@@ -42,3 +43,7 @@ export default class overwatch {
 }
 
 var test = new overwatch;
+
+socket.on('data', function(newData) {
+	test.newData(newData);
+});

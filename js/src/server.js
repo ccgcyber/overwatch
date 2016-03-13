@@ -37,9 +37,9 @@ export default class server {
 
 	serviceAdd(serviceData) {
 
-		console.log(serviceData.name);
-
-		this.services[serviceData.name] = new service(serviceData, this.element);
+		if (this.serviceAdded(serviceData) === false) {
+			this.services[serviceData.name] = new service(serviceData, this.element);
+		}
 
 	}
 

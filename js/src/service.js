@@ -30,7 +30,9 @@ export default class service {
 	}
 
 	sectionAdd(sectionData) {
-		this.sections[sectionData.name] = new section(sectionData, this.element);
+		if (this.sectionAdded(sectionData) === false) {
+			this.sections[sectionData.name] = new section(sectionData, this.element);
+		}
 	}
 
 	sectionAdded(sectionData) {

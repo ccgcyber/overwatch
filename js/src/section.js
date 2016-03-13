@@ -34,7 +34,9 @@ export default class section {
 	}
 
 	actionAdd(actionData) {
-		this.actions[actionData.name] = new action(actionData, this.element);
+		if (this.actionAdded(actionData) === false) {
+			this.actions[actionData.name] = new action(actionData, this.element);
+		}
 	}
 
 	actionAdded(actionData) {
