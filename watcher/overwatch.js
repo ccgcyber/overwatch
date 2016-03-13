@@ -110,6 +110,30 @@ tail.on("line", function(data) {
 	}
 
 
+	var regexMySQL = /.+ ([^ ]+) mysqld: (.+) \[(.+)]/g;
+	var MySQLArray = regexMySQL.exec(data);
+	if (MySQLArray !== null) {
+
+		serverData = {
+			server: {
+				name: MySQLArray[1],
+				service: {
+					name: 'mariadb',
+					section: {
+						name: MySQLArray[2],
+						action: {
+							name: MySQLArray[3]
+						}
+					}
+				}
+			}
+		};
+		console.log(serverData);
+		io.emit('data', serverData);
+		return;
+	}
+
+
     var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
     var UFWBlockArray = regexUFWBlock.exec(data);
     if (UFWBlockArray !== null) {
