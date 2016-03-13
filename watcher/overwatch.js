@@ -69,7 +69,7 @@ tail.on("line", function(data) {
 					section: {
 						name: UFWBlockArray[3],
 						action: {
-							name: UFWBlockArray[6]
+							name: 'BLOCK'
 						}
 					}
 				}
