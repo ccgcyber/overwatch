@@ -59,11 +59,10 @@ body {
 }
 
 .server .service > .section .action {
-	float: left;
 	display: block;
 	opacity: 0.5;
 	color: #FFF;
-	width: 90px;
+	min-width: 60px;
 	margin: 2px 3px;
 	padding: 2px 4px;
 }
