@@ -21,7 +21,7 @@ export default class section {
 
 	render() {
 		var siteElement = $('<div/>');
-		siteElement.addClass('site');
+		siteElement.addClass('section');
 		siteElement.addClass(this.name);
 		siteElement.appendTo(this.renderTo);
 
