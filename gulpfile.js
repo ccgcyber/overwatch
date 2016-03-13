@@ -5,7 +5,7 @@ var source = require('vinyl-source-stream');
 
 var src = {
 	sass: 'scss/*.scss',
-	javascript: 'js/src/*.js'
+	javascript: 'js/src/**/*.js'
 };
 
 var dest = {
@@ -14,7 +14,7 @@ var dest = {
 };
 
 gulp.task('scripts', function() {
-	browserify('./js/src/app.js', { debug: true })
+	browserify('./js/src/overwatch.js', { debug: true })
 		.transform("babelify", { presets: ["es2015"] })
 		.bundle()
 		.pipe(source('app.js'))
