@@ -1,0 +1,90 @@
+body {
+	font-family: Roboto Mono, Ubuntu Mono;
+	background: #333;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+.server {
+	position: relative;
+	overflow: hidden;
+	width: 300px;
+	margin: 15px;
+	background-color: #555;
+}
+
+.server > header {
+	text-align: center;
+	margin: 0 0 5px;
+	font-size: 26px;
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+.server .service {
+	background-color: #888;
+	padding: 6px;
+	padding-right: 0;
+	overflow: hidden;
+	margin-top: 5px;
+}
+
+.server .service::before {
+	display: block;
+	color: #333;
+	text-transform: uppercase;
+	font-size: 18px;
+}
+
+.server .service.apache2::before {
+	content: "Apache 2";
+}
+
+.server .service.apache2 > .site {
+	margin-top: 4px;
+	background-color: rgba(0,0,0,0.1);
+	padding: 4px;
+	margin-left: 20px;
+}
+
+.server .service.apache2 > .site::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.server .service.apache2 > .site header {
+}
+
+.server .service.apache2 > .site .method {
+	float: left;
+	display: block;
+	opacity: 0.5;
+	color: #FFF;
+	width: 65px;
+	background-color: #006600;
+	margin: 2px 3px;
+	padding: 2px 4px;
+}
+
+.server .service.apache2 > .site .method.get {
+	background-color: #003300;
+}
+.server .service.apache2 > .site .method.post {
+	background-color: #000033;
+}
+.server .service.apache2 > .site .method.options {
+	background-color: #333300;
+}
+
+
+
+
+.server .service.mysql::before {
+	content: "MySQL";
+}
+
+.server .service.ufw::before {
+	content: "UFW";
+}

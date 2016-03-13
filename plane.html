@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Overwatch</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700' rel='stylesheet' type='text/css'>
+	<link href="css/style.css" rel='stylesheet' type="text/css">
+</head>
+<body>
+
+<section class="server" id="server-ID">
+	<header>Server 00</header>
+	<div class="service apache2">
+		<div class="site">
+			<header>www.somesite.com</header>
+			<div class="method get">GET</div>
+			<div class="method post">POST</div>
+			<div class="method options">OPTIONS</div>
+		</div>
+		<div class="site">
+			<header>www.somesite.com</header>
+			<div class="method get">GET</div>
+			<div class="method post">POST</div>
+			<div class="method options">OPTIONS</div>
+		</div>
+		<div class="site">
+			<header>www.somesite.com</header>
+			<div class="method get">GET</div>
+			<div class="method post">POST</div>
+			<div class="method options">OPTIONS</div>
+		</div>
+		<div class="site">
+			<header>www.somesite.com</header>
+			<div class="method get">GET</div>
+			<div class="method post">POST</div>
+			<div class="method options">OPTIONS</div>
+		</div>
+	</div>
+	<div class="service mysql">
+	</div>
+	<div class="service ufw">
+	</div>
+</section>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/socket.io-client/socket.io.js"></script>
+
+<script>
+    var socket = io('//:3000');
+
+    socket.on('connect', function() {
+        console.log('connected');
+    });
+
+    socket.on('data', function(data) {
+
+        console.log(data);
+
+        $('.server#'+data[1]+' .site.'+data[2].replace('.', '')+' .method.'+data[5].toLowerCase()).css('opacity',1);
+        setTimeout(function() {$('.server#'+data[1]+' .site.'+data[2].replace('.', '')+' .method.'+data[5].toLowerCase()).css('opacity',0.5);},20);
+
+    });
+
+</script>
+</body>
+</html>
