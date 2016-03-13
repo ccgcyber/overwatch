@@ -21,8 +21,23 @@ tail.on("line", function(data) {
         return false;
     }
 
-    console.log(dataArray);
+	var serverData = {
+		server: {
+			name: dataArray[1],
+			service: {
+				name: 'apache2',
+				section: {
+					name: dataArray[2],
+					action: {
+						name: dataArray[5]
+					}
+				}
+			}
+		}
+	};
 
-    io.emit('data', dataArray);
+    console.log(serverData);
+
+    io.emit('data', serverData);
 
 });
