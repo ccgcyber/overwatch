@@ -6,8 +6,11 @@ body {
 	padding: 0;
 }
 
-.server {
+#servers {
 	display: flex;
+}
+
+.server {
 	position: relative;
 	overflow: hidden;
 	width: 300px;
@@ -75,16 +78,16 @@ body {
 	margin-left: 20px;
 }
 
+.server .service > .section .action {
+	background-color: #DDD;
+	order: 100;
+}
+
 
 
 
 .server .service.apache2::before {
 	content: "Apache 2";
-}
-
-.server .service.apache2 > .section .action {
-	background-color: #DDD;
-	order: 100;
 }
 .server .service.apache2 > .section .action.GET {
 	background-color: #003300;
@@ -100,6 +103,24 @@ body {
 }
 .server .service.apache2 > .section .action.HEAD {
 	background-color: #330033;
+	order: 3;
+}
+
+
+
+.server .service.php::before {
+	content: "PHP";
+}
+.server .service.php > .section .action.error {
+	background-color: #ad0000;
+	order: 1;
+}
+.server .service.php > .section .action.warn {
+	background-color: #ba770f;
+	order: 2;
+}
+.server .service.php > .section .action.notice {
+	background-color: #7f7e81;
 	order: 3;
 }
 
