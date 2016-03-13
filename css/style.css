@@ -57,7 +57,7 @@ body {
 .server .service.apache2 > .site header {
 }
 
-.server .service.apache2 > .site .method {
+.server .service.apache2 > .site .action {
 	float: left;
 	display: block;
 	opacity: 0.5;
@@ -68,13 +68,13 @@ body {
 	padding: 2px 4px;
 }
 
-.server .service.apache2 > .site .method.get {
+.server .service.apache2 > .site .action.GET {
 	background-color: #003300;
 }
-.server .service.apache2 > .site .method.post {
+.server .service.apache2 > .site .action.POST {
 	background-color: #000033;
 }
-.server .service.apache2 > .site .method.options {
+.server .service.apache2 > .site .action.OPTIONS {
 	background-color: #333300;
 }
 
