@@ -62,6 +62,30 @@ tail.on("line", function(data) {
     }
 
 
+    var regexCron = /.+ ([^ ]+) CRON\[[0-9]+]: \((.+)\) CMD \(.+ -t (.+)\)/g;
+    var cronArray = regexCron.exec(data);
+    if (cronArray !== null) {
+
+		serverData = {
+			server: {
+				name: cronArray[1],
+				service: {
+					name: 'cron',
+					section: {
+						name: cronArray[2],
+						action: {
+							name: cronArray[3]
+						}
+					}
+				}
+			}
+		};
+		console.log(serverData);
+		io.emit('data', serverData);
+		return;
+    }
+
+
     var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
     var UFWBlockArray = regexUFWBlock.exec(data);
     if (UFWBlockArray !== null) {
