@@ -27,9 +27,6 @@ export default class action {
 
 	blink() {
 
-		clearTimeout(this.timer);
-		this.timer = null;
-
 		this.element.addClass('active');
 
 		this.timer = setTimeout(function() {
