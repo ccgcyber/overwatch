@@ -11,3 +11,7 @@ A simple real time NodeJS based visual multi-server syslog analyser
 - MySQL
 
 Want to see another service supported just raise an issue.
+
+## Screen Shot
+
+![screenshot.png](Overwatch v0.1.0)
