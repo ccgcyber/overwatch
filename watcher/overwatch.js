@@ -57,4 +57,27 @@ tail.on("line", function(data) {
 		return;
     }
 
+
+    var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) TOS=(.+)/g;
+    var UFWBlockArray = regexUFWBlock.exec(data);
+    if (UFWBlockArray !== null) {
+		serverData = {
+			server: {
+				name: UFWBlockArray[1],
+				service: {
+					name: 'ufw',
+					section: {
+						name: UFWBlockArray[3],
+						action: {
+							name: UFWBlockArray[6]
+						}
+					}
+				}
+			}
+		};
+		console.log(serverData);
+		io.emit('data', serverData);
+		return;
+    }
+
 });
