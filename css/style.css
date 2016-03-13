@@ -79,7 +79,7 @@ body {
 }
 
 .server .service > .section .action {
-	background-color: #DDD;
+	background-color: #404e57;
 	order: 100;
 }
 
@@ -124,7 +124,6 @@ body {
 	order: 2;
 }
 .server .service.php > .section .action.notice {
-	background-color: #7f7e81;
 	order: 3;
 }
 
