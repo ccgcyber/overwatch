@@ -35,14 +35,18 @@ tail.on("line", function(data) {
     }
 
 
-    var regexApacheError = /.+ ([^ ]+) apache2: \[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)/g;
+    var regexApacheError = /.+ ([^ ]+) apache2: \[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)\.c\([0-9]+\): (.+)/g;
     var apacheErrorArray = regexApacheError.exec(data);
     if (apacheErrorArray !== null) {
+
+		// Determine if this is an Apache error or an error in mod_php
+		var serviceName = (apacheErrorArray[5] === 'sapi_apache2') ? 'php':'apache2';
+
 		serverData = {
 			server: {
 				name: apacheErrorArray[1],
 				service: {
-					name: 'php',
+					name: serviceName,
 					section: {
 						name: apacheErrorArray[2],
 						action: {
