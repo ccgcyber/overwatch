@@ -131,8 +131,22 @@ body {
 
 
 .server .service.mysql::before {
-	content: "MySQL";
+	content: "MariaDB";
 }
+.server .service.mysql > .section .action.ERROR {
+	background-color: #ad0000;
+	order: 1;
+}
+.server .service.mysql > .section .action.Warning {
+	background-color: #ba770f;
+	order: 2;
+}
+.server .service.mysql > .section .action.Note {
+	order: 3;
+}
+
+
+
 
 .server .service.ufw::before {
 	content: "UFW";
