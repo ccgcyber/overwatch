@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-var apache2Service = require('./services/apache2/service.js').default;
+var service = require('./service.js').default;
 
 export default class server {
 	constructor(serverData) {
@@ -37,9 +37,9 @@ export default class server {
 
 	serviceAdd(serviceData) {
 
-		if (serviceData.name === 'apache2') {
-			this.services[serviceData.name] = new apache2Service(serviceData, this.element);
-		}
+		console.log(serviceData.name);
+
+		this.services[serviceData.name] = new service(serviceData, this.element);
 
 	}
 
