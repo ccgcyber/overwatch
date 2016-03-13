@@ -62,6 +62,29 @@ tail.on("line", function(data) {
     }
 
 
+	var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
+	var UFWBlockArray = regexUFWBlock.exec(data);
+	if (UFWBlockArray !== null) {
+		serverData = {
+			server: {
+				name: UFWBlockArray[1],
+				service: {
+					name: 'ufw',
+					section: {
+						name: UFWBlockArray[3],
+						action: {
+							name: 'BLOCK::'+UFWBlockArray[11]
+						}
+					}
+				}
+			}
+		};
+		console.log(serverData);
+		io.emit('data', serverData);
+		return;
+	}
+
+
     var regexCron = /.+ ([^ ]+) CRON\[[0-9]+]: \((.+)\) CMD \(.+ -t (.+)\)/g;
     var cronArray = regexCron.exec(data);
     if (cronArray !== null) {
@@ -132,28 +155,5 @@ tail.on("line", function(data) {
 		io.emit('data', serverData);
 		return;
 	}
-
-
-    var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
-    var UFWBlockArray = regexUFWBlock.exec(data);
-    if (UFWBlockArray !== null) {
-		serverData = {
-			server: {
-				name: UFWBlockArray[1],
-				service: {
-					name: 'ufw',
-					section: {
-						name: UFWBlockArray[3],
-						action: {
-							name: 'BLOCK::'+UFWBlockArray[11]
-						}
-					}
-				}
-			}
-		};
-		console.log(serverData);
-		io.emit('data', serverData);
-		return;
-    }
 
 });
