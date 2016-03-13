@@ -37,48 +37,50 @@ body {
 	font-size: 18px;
 }
 
-.server .service.apache2::before {
-	content: "Apache 2";
+.server .service > .section::after {
+	content: "";
+	display: table;
+	clear: both;
 }
 
-.server .service.apache2 > .site {
+.server .service > .section header {
+}
+
+.server .service > .section .action {
+	float: left;
+	display: block;
+	opacity: 0.5;
+	color: #FFF;
+	width: 65px;
+	margin: 2px 3px;
+	padding: 2px 4px;
+}
+
+.server .service > .section .action.active {
+	opacity: 1;
+}
+
+.server .service > .section {
 	margin-top: 4px;
 	background-color: rgba(0,0,0,0.1);
 	padding: 4px;
 	margin-left: 20px;
 }
 
-.server .service.apache2 > .site::after {
-	content: "";
-	display: table;
-	clear: both;
+
+
+
+.server .service.apache2::before {
+	content: "Apache 2";
 }
 
-.server .service.apache2 > .site header {
-}
-
-.server .service.apache2 > .site .action {
-	float: left;
-	display: block;
-	opacity: 0.5;
-	color: #FFF;
-	width: 65px;
-	background-color: #006600;
-	margin: 2px 3px;
-	padding: 2px 4px;
-}
-
-.server .service.apache2 > .site .action.active {
-	opacity: 1;
-}
-
-.server .service.apache2 > .site .action.GET {
+.server .service.apache2 > .section .action.GET {
 	background-color: #003300;
 }
-.server .service.apache2 > .site .action.POST {
+.server .service.apache2 > .section .action.POST {
 	background-color: #000033;
 }
-.server .service.apache2 > .site .action.OPTIONS {
+.server .service.apache2 > .section .action.OPTIONS {
 	background-color: #333300;
 }
 
