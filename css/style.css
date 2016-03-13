@@ -139,11 +139,11 @@ body {
 .server .service.ufw::before {
 	content: "UFW";
 }
-.server .service.ufw > .section .action.ALLOW {
+.server .service.ufw > .section .action[class*='ALLOW::'] {
 	background-color: #003300;
 	order: 1;
 }
-.server .service.ufw > .section .action.BLOCK {
+.server .service.ufw > .section .action[class*='BLOCK::'] {
 	background-color: #ba770f;
 	order: 2;
 }
