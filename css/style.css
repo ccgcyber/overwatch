@@ -14,7 +14,7 @@ body {
 .server {
 	position: relative;
 	overflow: hidden;
-	width: 300px;
+	width: 350px;
 	margin: 15px;
 	background-color: #555;
 }
@@ -63,7 +63,7 @@ body {
 	display: block;
 	opacity: 0.5;
 	color: #FFF;
-	width: 65px;
+	width: 90px;
 	margin: 2px 3px;
 	padding: 2px 4px;
 }
