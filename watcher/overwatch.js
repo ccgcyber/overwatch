@@ -62,7 +62,7 @@ tail.on("line", function(data) {
     }
 
 
-    var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) TOS=(.+)/g;
+    var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
     var UFWBlockArray = regexUFWBlock.exec(data);
     if (UFWBlockArray !== null) {
 		serverData = {
@@ -73,7 +73,7 @@ tail.on("line", function(data) {
 					section: {
 						name: UFWBlockArray[3],
 						action: {
-							name: 'BLOCK'
+							name: 'BLOCK::'+UFWBlockArray[11]
 						}
 					}
 				}
