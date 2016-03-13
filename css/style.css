@@ -68,6 +68,10 @@ body {
 	padding: 2px 4px;
 }
 
+.server .service.apache2 > .site .action.active {
+	opacity: 1;
+}
+
 .server .service.apache2 > .site .action.GET {
 	background-color: #003300;
 }
