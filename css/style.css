@@ -74,6 +74,9 @@ body {
 	content: "Apache 2";
 }
 
+.server .service.apache2 > .section .action {
+	background-color: #DDD;
+}
 .server .service.apache2 > .section .action.GET {
 	background-color: #003300;
 }
@@ -82,6 +85,9 @@ body {
 }
 .server .service.apache2 > .section .action.OPTIONS {
 	background-color: #333300;
+}
+.server .service.apache2 > .section .action.HEAD {
+	background-color: #330033;
 }
 
 
