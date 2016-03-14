@@ -135,18 +135,18 @@ body {
 
 
 
-.server .service.mysql::before {
+.server .service.mariadb::before {
 	content: "MariaDB";
 }
-.server .service.mysql > .section .action.ERROR {
+.server .service.mariadb > .section .action.ERROR {
 	background-color: #ad0000;
 	order: 1;
 }
-.server .service.mysql > .section .action.Warning {
+.server .service.mariadb > .section .action.Warning {
 	background-color: #ba770f;
 	order: 2;
 }
-.server .service.mysql > .section .action.Note {
+.server .service.mariadb > .section .action.Note {
 	order: 3;
 }
 
