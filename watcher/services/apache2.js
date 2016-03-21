@@ -9,7 +9,7 @@ class apache2 {
 
 		// The regex to match all the log data
 		this.regexAccess = /^\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)" "([^"]+)"$/g;
-		this.regexError = /^\[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)\.c\([0-9]+\): (.+)$/g;
+		this.regexError = /^\[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] mod_(.+)\.c\([0-9]+\): (.+)$/g;
 	}
 
 	logMatch(server, logLine) {
@@ -42,8 +42,9 @@ class apache2 {
 		var logDataError = this.regexError.exec(logLine);
 
 		if (logDataError !== null) {
+
 			var section = logDataError[1]; // The domain name
-			var action = logDataError[4]; // The HTTP action (GET, POST etc)
+			var action = 'error';
 
 			// Send the data back
 			return this.emit(server, section, action);
