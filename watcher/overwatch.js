@@ -2,6 +2,36 @@
 
 var Tail = require('tail').Tail;
 var io = require('socket.io')(3000);
+var apache2 = require('./services/apache2');
+
+// Function to send data to the client(s)
+var emitter = {
+	emit: function(server, service, section, action) {
+		console.log(server, service, section, action);
+
+		var serverData = {
+			server: {
+				name: server,
+				service: {
+					name: service,
+					section: {
+						name: section,
+						action: {
+							name: action
+						}
+					}
+				}
+			}
+		};
+		io.emit('data', serverData);
+
+	}
+};
+
+// Register services to watch for, syslogtag: serviceClass
+var services = {
+	'apache2': new apache2(emitter)
+};
 
 io.on('connection', function(socket){
     console.log('connected');
@@ -9,34 +39,23 @@ io.on('connection', function(socket){
 
 var tail = new Tail("../syslog");
 
-tail.on("line", function(data) {
+tail.on("line", function(syslogLine) {
 
-	var serverData = {};
-    var regexApacheAccess = /.+ ([^ ]+) apache2: \[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)" "([^"]+)"/g;
-    var apacheAccessArray = regexApacheAccess.exec(data);
-    if (apacheAccessArray !== null) {
-		serverData = {
-			server: {
-				name: apacheAccessArray[1],
-				service: {
-					name: 'apache2',
-					section: {
-						name: apacheAccessArray[2],
-						action: {
-							name: apacheAccessArray[5]
-						}
-					}
-				}
-			}
-		};
-		console.log(serverData);
-		io.emit('data', serverData);
-		return;
-    }
+	var regexSyslogLine = /^.+ ([^ ]+) (.+): (.+)$/g;
+	var syslogLineArray = regexSyslogLine.exec(syslogLine);
+
+	if (syslogLineArray !== null) {
+		switch(syslogLineArray[2]) {
+			case 'apache2':
+				services.apache2.logMatch(syslogLineArray[1], syslogLineArray[3]);
+				break;
+		}
+	}
+	return;
 
 
     var regexApacheError = /.+ ([^ ]+) apache2: \[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)\.c\([0-9]+\): (.+)/g;
-    var apacheErrorArray = regexApacheError.exec(data);
+    var apacheErrorArray = regexApacheError.exec(syslogLine);
     if (apacheErrorArray !== null) {
 
 		// Determine if this is an Apache error or an error in mod_php
@@ -63,7 +82,7 @@ tail.on("line", function(data) {
 
 
 	var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
-	var UFWBlockArray = regexUFWBlock.exec(data);
+	var UFWBlockArray = regexUFWBlock.exec(syslogLine);
 	if (UFWBlockArray !== null) {
 		serverData = {
 			server: {
@@ -86,7 +105,7 @@ tail.on("line", function(data) {
 
 
     var regexCron = /.+ ([^ ]+) CRON\[[0-9]+]: \((.+)\) CMD \(.+ -t (.+)\)/g;
-    var cronArray = regexCron.exec(data);
+    var cronArray = regexCron.exec(syslogLine);
     if (cronArray !== null) {
 
 		serverData = {
@@ -110,7 +129,7 @@ tail.on("line", function(data) {
 
 
 	var regexCronSimple = /^.+ ([^ ]+) CRON\[[0-9]+]: \((.+)\) CMD \(.+\)$/g;
-	var cronSimpleArray = regexCronSimple.exec(data);
+	var cronSimpleArray = regexCronSimple.exec(syslogLine);
 	if (cronSimpleArray !== null) {
 
 		serverData = {
@@ -134,7 +153,7 @@ tail.on("line", function(data) {
 
 
 	var regexMySQL = /.+ ([^ ]+) mysqld: (.+) \[(.+)]/g;
-	var MySQLArray = regexMySQL.exec(data);
+	var MySQLArray = regexMySQL.exec(syslogLine);
 	if (MySQLArray !== null) {
 
 		serverData = {
