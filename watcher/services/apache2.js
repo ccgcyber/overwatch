@@ -55,3 +55,5 @@ class apache2 {
 }
 
 module.exports = apache2;
+
+Object.defineProperty(apache2, 'tag', { value: 'apache2' });

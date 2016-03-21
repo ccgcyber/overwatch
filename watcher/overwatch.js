@@ -28,10 +28,9 @@ var emitter = {
 	}
 };
 
-// Register services to watch for, syslogtag: serviceClass
-var services = {
-	'apache2': new apache2(emitter)
-};
+// Register services to watch for
+var services = {};
+services[apache2.tag] = new apache2(emitter);
 
 io.on('connection', function(socket){
     console.log('connected');
