@@ -32,7 +32,7 @@ class apache2 {
 			var action = logDataAccess[4]; // The HTTP action (GET, POST etc)
 
 			// Send the data back
-			return this.emmiter.emit(server, 'apache2', section, action);
+			return this.emit(server, section, action);
 		}
 
 		return false;
@@ -46,10 +46,15 @@ class apache2 {
 			var action = logDataError[4]; // The HTTP action (GET, POST etc)
 
 			// Send the data back
-			return this.emmiter.emit(server, 'apache2', section, action);
+			return this.emit(server, section, action);
 		}
 
 		return false;
+	}
+
+	emit(server, section, action) {
+		// Send the data back
+		return this.emmiter.emit(server, apache2.tag, section, action);
 	}
 
 }
