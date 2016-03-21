@@ -143,7 +143,7 @@ tail.on("line", function(data) {
 				service: {
 					name: 'mariadb',
 					section: {
-						name: MySQLArray[2],
+						name: '',
 						action: {
 							name: MySQLArray[3]
 						}
