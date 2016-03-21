@@ -41,14 +41,22 @@ var tail = new Tail("../syslog");
 
 tail.on("line", function(syslogLine) {
 
-	var regexSyslogLine = /^.+ ([^ ]+) (.+): (.+)$/g;
+	// Try to match the general syslog format
+	var regexSyslogLine = /^(.+) ([^ ]+) (.+): (.+)$/g;
 	var syslogLineArray = regexSyslogLine.exec(syslogLine);
 
+	// Check we got a match
 	if (syslogLineArray !== null) {
-		switch(syslogLineArray[2]) {
-			case 'apache2':
-				services.apache2.logMatch(syslogLineArray[1], syslogLineArray[3]);
-				break;
+
+		// Pull out the values into readable variables
+		var syslogLineDate = syslogLineArray[1];
+		var syslogLineServer = syslogLineArray[2];
+		var syslogLineTag = syslogLineArray[3];
+		var syslogLineData = syslogLineArray[4];
+
+		// Check this service has been registered
+		if (typeof services[syslogLineTag] !== 'undefined') {
+			services[syslogLineTag].logMatch(syslogLineServer, syslogLineData);
 		}
 	}
 	return;
