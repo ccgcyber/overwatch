@@ -62,33 +62,6 @@ tail.on("line", function(syslogLine) {
 	return;
 
 
-    var regexApacheError = /.+ ([^ ]+) apache2: \[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)\.c\([0-9]+\): (.+)/g;
-    var apacheErrorArray = regexApacheError.exec(syslogLine);
-    if (apacheErrorArray !== null) {
-
-		// Determine if this is an Apache error or an error in mod_php
-		var serviceName = (apacheErrorArray[5] === 'sapi_apache2') ? 'php':'apache2';
-
-		serverData = {
-			server: {
-				name: apacheErrorArray[1],
-				service: {
-					name: serviceName,
-					section: {
-						name: apacheErrorArray[2],
-						action: {
-							name: 'error'
-						}
-					}
-				}
-			}
-		};
-		console.log(serverData);
-		io.emit('data', serverData);
-		return;
-    }
-
-
 	var regexUFWBlock = /.+ ([^ ]+) kernel: \[(.+)] \[UFW BLOCK] IN=(.+) OUT=(.*) MAC=(.+) SRC=(.+) DST=(.+) LEN=([0-9]+) .* PROTO=(.+) SPT=([0-9]+) DPT=([0-9]+) .*/g;
 	var UFWBlockArray = regexUFWBlock.exec(syslogLine);
 	if (UFWBlockArray !== null) {

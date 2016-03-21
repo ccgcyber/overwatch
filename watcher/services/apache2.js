@@ -8,20 +8,48 @@ class apache2 {
 		this.emmiter = dataEmitter;
 
 		// The regex to match all the log data
-		this.regex = /^\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)" "([^"]+)"$/g
+		this.regexAccess = /^\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)" "([^"]+)"$/g;
+		this.regexError = /^\[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] (.+)\.c\([0-9]+\): (.+)$/g;
 	}
 
 	logMatch(server, logLine) {
-		var logData = this.regex.exec(logLine);
 
-		if (logData !== null) {
+		if (this.logMatchAccess(server, logLine)) {
+			return;
+		}
 
-			var section = logData[1]; // The domain name
-			var action = logData[4]; // The HTTP action (GET, POST etc)
+		if (this.logMatchError(server, logLine)) {
+			return;
+		}
 
+	}
+
+	logMatchAccess(server, logLine) {
+		var logDataAccess = this.regexAccess.exec(logLine);
+
+		if (logDataAccess !== null) {
+			var section = logDataAccess[1]; // The domain name
+			var action = logDataAccess[4]; // The HTTP action (GET, POST etc)
+
+			// Send the data back
 			return this.emmiter.emit(server, 'apache2', section, action);
 		}
 
+		return false;
+	}
+
+	logMatchError(server, logLine) {
+		var logDataError = this.regexError.exec(logLine);
+
+		if (logDataError !== null) {
+			var section = logDataError[1]; // The domain name
+			var action = logDataError[4]; // The HTTP action (GET, POST etc)
+
+			// Send the data back
+			return this.emmiter.emit(server, 'apache2', section, action);
+		}
+
+		return false;
 	}
 
 }
