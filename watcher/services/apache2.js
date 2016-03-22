@@ -1,5 +1,7 @@
 'use strict';
 
+var php5 = require('./php');
+
 class apache2 {
 
 	constructor(dataEmitter) {
@@ -8,8 +10,8 @@ class apache2 {
 		this.emmiter = dataEmitter;
 
 		// The regex to match all the log data
-		this.regexAccess = /^\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "([^"]+)" "([^"]+)" "([^"]+)"$/g;
-		this.regexError = /^\[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] mod_(.+)\.c\([0-9]+\): (.+)$/g;
+		this.regexAccess = /\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "(.+)" "(.+)" "(.+)"/;
+		this.regexError = /\[(.+)] \[error] \[pid ([0-9]+)] \[client (.+)] mod_(.+)\.c\([0-9]+\): (.+)/;
 	}
 
 	logMatch(server, logLine) {
@@ -19,6 +21,13 @@ class apache2 {
 		}
 
 		if (this.logMatchError(server, logLine)) {
+			return;
+		}
+
+		// Check for PHP errors as they are tagged as Apache
+		var php = new php5(this.emmiter);
+
+		if (php.logMatchError(server, logLine)) {
 			return;
 		}
 
