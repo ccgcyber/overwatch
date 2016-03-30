@@ -75,7 +75,7 @@ body {
 	content: attr(data-count);
 	font-size: 9px;
 	float: right;
-	line-height: 175%;
+	line-height: 180%;
 }
 
 .server .service > .section .action.active {
