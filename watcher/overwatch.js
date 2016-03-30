@@ -25,6 +25,8 @@ var emitter = {
 		};
 		io.emit('data', serverData);
 
+		return true;
+
 	}
 };
 
@@ -41,7 +43,7 @@ var tail = new Tail("../syslog");
 tail.on("line", function(syslogLine) {
 
 	// Try to match the general syslog format
-	var regexSyslogLine = /^(.+) ([^ ]+) (.+): (.+)$/g;
+	var regexSyslogLine = /^(.+) ([a-z0-9\-]+) ([^:]+): (.+)/;
 	var syslogLineArray = regexSyslogLine.exec(syslogLine);
 
 	// Check we got a match
