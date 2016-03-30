@@ -180,3 +180,11 @@ body {
 .server .service.API::before {
 	content: "API";
 }
+.server .service.API > .section .action.GET {
+	background-color: #003300;
+	order: 1;
+}
+.server .service.API > .section .action.POST {
+	background-color: #000033;
+	order: 2;
+}
