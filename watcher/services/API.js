@@ -8,18 +8,11 @@ class API {
 		this.emmiter = dataEmitter;
 
 		// The regex to match all the log data
-		this.regexPrimary = /\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "(.+) (\/rest\/av\/[^/ ]+).+" "(.+)" "(.+)"/;
-		this.regexSecondary = /\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "(.+) (\/api\/[^/ ]+).+" "(.+)" "(.+)"/;
+		this.regex = /\[(.+)] \[pid ([0-9]+)] \[client (.+)] \[(.+)] ([0-9]+) ([0-9]+) "(.+) (\/rest\/av\/[^/]+).+" "(.+)" "(.+)"/;
 	}
 
 	logMatchAccess(server, logLine) {
-		var logDataAccess;
-
-		logDataAccess = this.regexPrimary.exec(logLine);
-
-		if (logDataAccess == null) {
-			logDataAccess = this.regexSecondary.exec(logLine);
-		}
+		var logDataAccess = this.regex.exec(logLine);
 
 		if (logDataAccess !== null) {
 			var section = logDataAccess[8]; // The domain name
