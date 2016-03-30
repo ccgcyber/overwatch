@@ -174,3 +174,9 @@ body {
 .server .service.cron > .section .action {
 	order: 1;
 }
+
+
+
+.server .service.API::before {
+	content: "API";
+}
