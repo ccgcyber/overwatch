@@ -10,6 +10,8 @@ export default class action {
 		this.renderTo = renderTo;
 		this.element = null;
 
+		this.count = 0;
+
 		this.timer = null;
 
 		this.render();
@@ -27,10 +29,14 @@ export default class action {
 
 	blink() {
 
+		this.count++;
+
 		this.element.addClass('active');
 
 		this.timer = setTimeout(function() {
 			this.element.removeClass('active');
 		}.bind(this), 60);
+
+		this.element.attr('data-count', this.count);
 	}
 }
