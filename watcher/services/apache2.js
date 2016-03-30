@@ -1,6 +1,7 @@
 'use strict';
 
 var php5 = require('./php');
+var API = require('./API');
 
 class apache2 {
 
@@ -15,6 +16,13 @@ class apache2 {
 	}
 
 	logMatch(server, logLine) {
+
+		// Check for API calls as they are tagged as Apache
+		var APIObj = new API(this.emmiter);
+
+		if (APIObj.logMatchAccess(server, logLine)) {
+			return;
+		}
 
 		if (this.logMatchAccess(server, logLine)) {
 			return;
