@@ -71,6 +71,12 @@ body {
 	margin: 2px 3px;
 	padding: 2px 4px;
 }
+.server .service > .section .action::after {
+	content: attr(data-count);
+	font-size: 9px;
+	float: right;
+	line-height: 175%;
+}
 
 .server .service > .section .action.active {
 	opacity: 1;
